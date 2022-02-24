@@ -3,16 +3,29 @@ package Program;
 import boardgame.Board;
 import chess.ChessMatch;
 import chess.ChessPiece;
+import chess.ChessPosition;
 
 import java.io.IOException;
 import java.util.Locale;
 import java.util.Scanner;
 
 public class App {
-    public static void main(String[] args){
+    public static void main(String[] args) {
+
+        Scanner sc = new Scanner(System.in);
         ChessMatch chessMatch = new ChessMatch();
 
+        while (true) {
+            UI.printBoard(chessMatch.getPieces());
+            System.out.println();
+            System.out.print("Source: ");
+            ChessPosition source = UI.readChessPosition(sc);
 
-        UI.printBoard(chessMatch.getPieces());
+            System.out.println();
+            System.out.print("Target: ");
+            ChessPosition target = UI.readChessPosition(sc);
+
+            ChessPiece capturedPiece = chessMatch.performChessMove(source, target);
+        }
     }
 }
