@@ -34,10 +34,8 @@ public class UI {
     public static final String ANSI_WHITE_BACKGROUND = "\u001B[47m";
 
     public static void clearScreen() throws IOException, InterruptedException {
-        if (System.getProperty("os.name").contains("Windows"))
-            new ProcessBuilder("cmd", "/c", "cls").inheritIO().start().waitFor();
-        else
-            Runtime.getRuntime().exec("clear");
+        System.out.print("\033[H\033[2J");
+        System.out.flush();
     }
 
     public static ChessPosition readChessPosition(Scanner sc) {
@@ -53,7 +51,7 @@ public class UI {
 
     public static void printBoard(ChessPiece[][] pieces){
         for (int i = 0; i < pieces.length; i++){
-            System.out.print((8 - i) + "");
+            System.out.print((8 - i) + " ");
             for (int j = 0; j < pieces.length; j++){
                 printPiece(pieces[i][j], false);
             }
@@ -69,6 +67,9 @@ public class UI {
         System.out.println();
         System.out.println("Turn: " + chessMatch.getTurn());
         System.out.println("Waiting player: " + chessMatch.getCurrentPlayer());
+        if (chessMatch.getCheck()){
+            System.out.println("CHECK!");
+        }
     }
 
     public static void printBoard(ChessPiece[][] pieces, boolean[][] possibleMoves){
@@ -87,7 +88,7 @@ public class UI {
             System.out.print(ANSI_BLUE_BACKGROUND);
         }
         if (piece == null) {
-            System.out.print("-"+ ANSI_RESET);
+            System.out.print("-" + ANSI_RESET);
         }
         else {
             if (piece.getColor() == Color.WHITE) {

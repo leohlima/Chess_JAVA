@@ -16,6 +16,10 @@ public abstract class ChessPiece extends Piece {
         return color;
     }
 
+    public ChessPosition getChessPosition(){
+        return ChessPosition.fromPosition(position);
+    }
+
     @Override
     public boolean[][] possibleMoves() {
         return new boolean[0][];

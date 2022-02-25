@@ -17,8 +17,8 @@ public class App {
         List<ChessPiece> captured = new ArrayList<>();
 
         while (true) {
-            UI.clearScreen();
             try {
+                UI.clearScreen();
                 UI.printMatch(chessMatch, captured);
                 System.out.println();
                 System.out.print("Source: ");
