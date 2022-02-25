@@ -7,20 +7,19 @@ import chess.ChessPiece;
 import chess.ChessPosition;
 
 import java.io.IOException;
-import java.util.InputMismatchException;
-import java.util.Locale;
-import java.util.Scanner;
+import java.util.*;
 
 public class App {
     public static void main(String[] args) throws IOException, InterruptedException {
 
         Scanner sc = new Scanner(System.in);
         ChessMatch chessMatch = new ChessMatch();
+        List<ChessPiece> captured = new ArrayList<>();
 
         while (true) {
             UI.clearScreen();
             try {
-                UI.printMatch(chessMatch);
+                UI.printMatch(chessMatch, captured);
                 System.out.println();
                 System.out.print("Source: ");
                 ChessPosition source = UI.readChessPosition(sc);
@@ -34,6 +33,10 @@ public class App {
                 ChessPosition target = UI.readChessPosition(sc);
 
                 ChessPiece capturedPiece = chessMatch.performChessMove(source, target);
+
+                if (captured != null) {
+                    captured.add(capturedPiece);
+                }
 
             } catch (ChessException | InputMismatchException e) {
                 System.out.println(e.getMessage());
